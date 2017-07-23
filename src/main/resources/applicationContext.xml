@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="app.properties"></context:property-placeholder>
+
+    <bean name="customerRepository"
+          class="com.pluralsight.repository.HibernateCustomerRepositoryImp">
+        <property name="dbUsername" value="${dbUsername}"></property>
+    </bean>
+    <bean name="customerService"
+          class="com.pluralsight.service.CustomerServiceImpl"
+          autowire="byType"
+          scope="prototype">
+         <!--autowire="ByName"--> <!-- Will work if the setter injector name is same-->
+          <!--autowire="constructor"--> <!-- Will work based on constructor-->
+          <!-- Setter based Injection -->
+          <!--<property name="customerRepository" ref="customerRepository"/>-->
+
+          <!-- Constructor Based Injection -->
+          <!--<constructor-arg index="0" ref="customerRepository" />-->
+    </bean>
+</beans>
